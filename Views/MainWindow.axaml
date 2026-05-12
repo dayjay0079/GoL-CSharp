@@ -26,11 +26,30 @@
     
         </UniformGrid>
 
-        <Button HorizontalAlignment="Center" 
-                VerticalAlignment="Center"
-                Click="golGrid_Step">
-            Step
-        </Button>
+        <UniformGrid Width="800" Height="100"
+                     Rows="1" Columns="3"
+                     Margin="20"
+                     HorizontalAlignment="Center"
+                     VerticalAlignment="Center"
+                     Name="inputGrid">
+            
+            <Button HorizontalAlignment="Center" 
+                    VerticalAlignment="Center"
+                    Click="golGrid_Run">
+                Run
+            </Button>
+            <Button HorizontalAlignment="Center" 
+                    VerticalAlignment="Center"
+                    Click="golGrid_Step">
+                Step
+            </Button>
+            <Button HorizontalAlignment="Center" 
+                    VerticalAlignment="Center"
+                    Click="golGrid_Pause">
+                Pause
+            </Button>
+            
+        </UniformGrid>
     </StackPanel>
 
 </Window>

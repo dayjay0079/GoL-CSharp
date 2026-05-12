@@ -4,6 +4,7 @@ using Avalonia.Controls;
 using Avalonia.Controls.Shapes;
 using Avalonia.Interactivity;
 using Avalonia.Media;
+using Avalonia.Threading;
 using GameOfLife.Models;
 
 
@@ -14,15 +15,50 @@ public partial class MainWindow : Window
     private readonly Color WHITE = Color.FromRgb(255, 255, 255);
     private readonly Color BLACK = Color.FromRgb(0, 0, 0);
     private readonly int GRIDSIZE = 50;
+    private readonly int UPDATES_PER_SECOND = 20;
+
+    private DispatcherTimer timer;
+    private bool isRunning = false;
     private GolGame game;
 
     public MainWindow()
     {
         this.game = new GolGame(GRIDSIZE);
+        this.timer = new DispatcherTimer
+        {
+            Interval = TimeSpan.FromMilliseconds(1000/UPDATES_PER_SECOND)
+        };
+        this.timer.Tick += onTimerTick;
+
+
         InitializeComponent();
         golGrid.Rows = GRIDSIZE;
         golGrid.Columns = GRIDSIZE;
         drawGrid();
+    }
+
+    private void onTimerTick(object? sender, EventArgs e)
+    {
+        game.doStep();
+        drawGrid();
+    }
+
+    private void golGrid_Run(object? sender, RoutedEventArgs e)
+    {
+        if (!this.isRunning)
+        {
+            this.timer.Start();
+            this.isRunning = true;
+        }
+    }
+
+    private void golGrid_Pause(object? sender, RoutedEventArgs e)
+    {
+        if (this.isRunning)
+        {
+            this.timer.Stop();
+            this.isRunning = false;
+        }
     }
 
     private void golGrid_Step(object? sender, RoutedEventArgs e)
