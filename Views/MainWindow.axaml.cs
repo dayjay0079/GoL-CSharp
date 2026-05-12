@@ -11,6 +11,8 @@ namespace GameOfLife.Views;
 
 public partial class MainWindow : Window
 {
+    private readonly Color WHITE = Color.FromRgb(255, 255, 255);
+    private readonly Color BLACK = Color.FromRgb(0, 0, 0);
     private readonly int GRIDSIZE = 50;
     private GolGame game;
 
@@ -20,6 +22,7 @@ public partial class MainWindow : Window
         InitializeComponent();
         golGrid.Rows = GRIDSIZE;
         golGrid.Columns = GRIDSIZE;
+        drawGrid();
     }
 
     private void golGrid_Step(object? sender, RoutedEventArgs e)
@@ -35,13 +38,13 @@ public partial class MainWindow : Window
         {
             for(int x = 0; x < GRIDSIZE; x++)
             {
-                if (!this.game.getCell(x, y))
-                {
-                    continue;
-                }
+                var color = this.game.getCell(x, y) 
+                            ? WHITE
+                            : BLACK;
+
                 var cell = new Rectangle
                 {
-                    Fill = new SolidColorBrush(Color.FromRgb(255, 255, 255)),
+                    Fill = new SolidColorBrush(color),
                     Width = 800/GRIDSIZE,
                     Height = 800/GRIDSIZE
                 };
