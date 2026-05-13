@@ -5,6 +5,7 @@ using Avalonia.Controls.Shapes;
 using Avalonia.Interactivity;
 using Avalonia.Media;
 using Avalonia.Threading;
+using Avalonia.Input;
 using GameOfLife.Models;
 
 
@@ -63,7 +64,24 @@ public partial class MainWindow : Window
 
     private void golGrid_Step(object? sender, RoutedEventArgs e)
     {
-        game.doStep();
+        // game.doStep();
+        game.setGlider();
+        drawGrid();
+    }
+
+    private void golGrid_Reset(object? sender, RoutedEventArgs e)
+    {
+        golGrid_Pause(sender, e);
+        game.resetGrid();
+        drawGrid();
+    }
+
+    private void PointerPressedHandler(object sender, PointerPressedEventArgs args)
+    {
+        var point = args.GetCurrentPoint(sender as Control);
+        int x = Convert.ToInt32(Math.Truncate(point.Position.X*GRIDSIZE/800));
+        int y = Convert.ToInt32(Math.Truncate(point.Position.Y*GRIDSIZE/800));
+        game.toggleCell(x, y);
         drawGrid();
     }
 
@@ -87,6 +105,5 @@ public partial class MainWindow : Window
                 golGrid.Children.Add(cell);
             }
         }
-
     }
 }

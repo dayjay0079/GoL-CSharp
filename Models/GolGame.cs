@@ -12,10 +12,10 @@ public class GolGame
     {
         this.gridSize = gridSize;  
         this.grid = new bool[gridSize, gridSize]; 
-        initializeGrid();
+        resetGrid();
     }
 
-    private void initializeGrid()
+    public void resetGrid()
     {
         for(int y = 0; y < this.gridSize; y++)
         {
@@ -24,13 +24,17 @@ public class GolGame
                 this.grid[y, x] = false;
             }
         }
+    }
 
+    public void setGlider()
+    {
         // Glider
         this.grid[0, 1] = true;
         this.grid[1, 2] = true;
         this.grid[2, 0] = true;
         this.grid[2, 1] = true;
         this.grid[2, 2] = true;
+
     }
 
     private int countNeighbors(bool[,] grid, int x, int y)
@@ -85,5 +89,10 @@ public class GolGame
     public bool getCell(int x, int y)
     {
         return this.grid[y, x];
+    }
+
+    public void toggleCell(int x, int y)
+    {
+        this.grid[y, x] = !this.grid[y, x];
     }
 }

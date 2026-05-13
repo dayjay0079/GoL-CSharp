@@ -22,12 +22,13 @@
                      Rows="10" Columns="10"
                      HorizontalAlignment="Center"
                      VerticalAlignment="Top"
+                     PointerPressed="PointerPressedHandler"
                      Name="golGrid">
     
         </UniformGrid>
 
         <UniformGrid Width="800" Height="100"
-                     Rows="1" Columns="3"
+                     Rows="1" Columns="4"
                      Margin="20"
                      HorizontalAlignment="Center"
                      VerticalAlignment="Center"
@@ -36,18 +37,25 @@
             <Button HorizontalAlignment="Center" 
                     VerticalAlignment="Center"
                     Click="golGrid_Run">
-                Run
-            </Button>
-            <Button HorizontalAlignment="Center" 
-                    VerticalAlignment="Center"
-                    Click="golGrid_Step">
-                Step
+                Start
             </Button>
             <Button HorizontalAlignment="Center" 
                     VerticalAlignment="Center"
                     Click="golGrid_Pause">
-                Pause
+                Stop
             </Button>
+            <Button HorizontalAlignment="Center" 
+                    VerticalAlignment="Center"
+                    Click="golGrid_Step">
+                <!-- Step -->
+                Set Glider
+            </Button>
+            <Button HorizontalAlignment="Center" 
+                    VerticalAlignment="Center"
+                    Click="golGrid_Reset">
+                Reset
+            </Button>
+
             
         </UniformGrid>
     </StackPanel>
